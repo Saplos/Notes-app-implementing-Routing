@@ -30,13 +30,24 @@ const Notes = props => {
     </ul>
   );
 
+  const {
+    match: {
+      params: { noteId }
+    }
+  } = props;
   const notes = state.notes;
+  let selectedNote = false;
 
-  render();
+  if (noteId > 0) {
+    selectedNote = notes.filter(note => note.id === Number(noteId));
+  }
+
   return (
-    <div className="Notes">
-      <h1> Notes </h1>
-      {renderNotes(notes)}
+    <div>
+      <div className="NotesHeader">
+        <Link to={"/notes"}> Notes </Link>
+      </div>
+      <div className="Notes">{renderNotes(selectedNote || notes)}</div>
     </div>
   );
 };
